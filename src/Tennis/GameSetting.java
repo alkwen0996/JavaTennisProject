@@ -9,15 +9,21 @@ import java.util.StringTokenizer;
 
 import com.github.lalyos.jfiglet.FigletFont;
 
-
+/**
+ * @author Minsu Lee
+ * @date2019. 7. 11.time오후 8:26:54
+ * @subject GameSetting Page
+ */
 class GameSetting {
+	
 	static Player getter_set;
 	static TennisUI tu = new TennisUI();
+	
 	public static void main(String agrs[]) throws IOException {
 		tu.getContestName();
 		inputData();
 		getContinue();
-	}
+	} //main
 	
 	static void getContinue() throws IOException {	
 		while(true) {
@@ -37,9 +43,9 @@ class GameSetting {
 				break;
 			}
 		}
-	}
+	}// getContinue() 게임진행여부 메서드.
 	
-	static void inputData() throws IOException { // 성별 게임타입,이름입력받긔
+	static void inputData() throws IOException { 
 
 		String name1= null;
 		String name2= null;
@@ -70,7 +76,7 @@ class GameSetting {
 		Score sc = new Score(); 
 		sc.getSet(p1,p2,duceFlag,getter_set,game_type); // 점수계산메소드 소환
 
-	}
+	}// inputData() 성별 게임타입,이름입력
 
 	static String getGender(String gender) {
 		Scanner sc=new Scanner(System.in);
@@ -79,7 +85,7 @@ class GameSetting {
 			gender = sc.nextLine();
 		} while(!gender.equals("man")&&!gender.equals("woman")&&!gender.equals("mixdouble"));
 		return gender;
-	}
+	} //getGender()
 
 	static String getNumber(String number) {
 		Scanner sc=new Scanner(System.in);
@@ -88,7 +94,8 @@ class GameSetting {
 			number = sc.nextLine();
 		} while(!number.equals("single")&&!number.equals("couple"));
 		return number;
-	}
+	} //getNumber()
+	
 	static String getName(String number) {
 		String name;
 		String regex = "^[a-zA-Z]{3}$";
@@ -101,8 +108,8 @@ class GameSetting {
 		name=sc.nextLine();
 	}while(!name.matches(regex));
 		return name;
-	}
-}
+	} //getName
+} // class GameSetting
 
 class TennisUI {
 	static StringTokenizer st;
@@ -114,7 +121,7 @@ class TennisUI {
 		 int i=0;
 		 while (st.hasMoreTokens()) {
 			  convertMessage[i++] = st.nextToken().toCharArray();
-		}
+		} 
 		 
 		 for (int j = 0; j < convertMessage.length; j++) {
 			for (int j2 = 0; j2 < convertMessage[j].length; j2++) {
@@ -122,8 +129,8 @@ class TennisUI {
 			}
 			System.out.println();
 		}
-	}
-}
+	}// getContestName()
+} // class TennisUI
 
 class Write{
 	String fileName;//=System.getProperty("user.dir");
@@ -143,7 +150,7 @@ class Write{
 						+"%s			%d			%d			%s\n"+
 						"----------------------------------------------------\n";
 		this.fw = new FileWriter(fileName);
-	}
+	} // write()
 	
 	void Record(Player p1, Player p2, int set) throws IOException {
 		record=String.format(arg0, 
@@ -155,12 +162,12 @@ class Write{
 		
 		//fw.close();
 		
-	}
+	} // record()
 	
 	void Close() throws IOException {
 		fw.close();	
 	}
-}
+} // class write 
 
 class Score{
 	Print pr = new Print();
@@ -174,7 +181,7 @@ class Score{
 	
 	Score() throws IOException{
 		wr=new Write();
-	}
+	}//Score()
 	
 	
 	
@@ -212,7 +219,7 @@ class Score{
 		// 승자 출력 
 		System.out.printf("●US Open Tennis 2019● WINNER IS [%s]", final_winner.name);
 		wr.fw.write("=====END OF WRITE=====");
-	}
+	} //getSet()
 
 	void getGame(Player getter,Player p1, Player p2, boolean duceFlag,Player getter_set) throws IOException {
 		System.out.printf("●US Open Tennis 2019●  [%s] VS [%s]\n",p1.name,p2.name );
@@ -254,7 +261,7 @@ class Score{
 				wr.Record(p1, p2, set);
 			}
 		}
-	}
+	}// getGame()
 
 	void getPoint(Player p1, Player p2, Player getter) throws IOException {
 
@@ -270,7 +277,7 @@ class Score{
 			wr.Record(p1, p2, set);
 			if(check_PointDuce(p1,p2,getter)) { break;}
 		}
-	}
+	} //getPoint()
 
 	private Player tieBreak(Player p1, Player p2) {
 		//게임이 시작될 때마다 각 플레이어 포인트 초기화
@@ -318,7 +325,7 @@ class Score{
 		else if (point2==7)  return game2;
 		else return 6;//듀스
 		 */
-	}
+	} //tieBreak()
 
 	boolean check_PointDuce(Player p1, Player p2, Player getter) throws IOException {
 
@@ -357,8 +364,8 @@ class Score{
 		}
 
 
-	}
-}
+	} //check_PointDuce()
+} //Score class
 
 class Print{
 	void printPoint(Player getter,Player p1,Player p2,int get_p1score,int get_p2score,int []score){
@@ -366,37 +373,37 @@ class Print{
 			System.out.printf("%2s 득점 : [%d번째 게임 승리]\n", getter.name, p1.game+p2.game+1);
 		else System.out.printf("%2s 득점 : [%d]-[%d] \n ", getter.name, get_p1score, get_p2score);
 		System.out.printf("p1 point : %d , p2 point : %d \n", p1.points, p2.points);
-	}
+	} //printPoint()
 	void printGame(Player getter_game,Player p1,Player p2){
 		drawLine('-', 42);
 		System.out.printf("Point 결과 => %s Point : %d , %s Point : %d\nGame 결과 => %s Game : %d, %s Game : %d\n"
 				, p1.name, p1.points, p2.name, p2.points, p1.name, p1.game, p2.name, p2.game );
 		drawLine('-', 42);
-	}
+	}//printGame()
 	void printTotal(Player p1, Player p2) {
 		drawLine('*', 60);
 		System.out.println("Player	Point	Game	Set");
 		System.out.printf("%s	%d	%d	%s\n",p1.name, p1.points, p1.game,Arrays.toString(p1.sets));
 		System.out.printf("%s	%d	%d	%s\n",p2.name, p2.points, p2.game,Arrays.toString(p2.sets));
 		drawLine('*', 60);
-	}
+	}//printTotal()
 	void printTieBreak(Player p1, Player p2) {
 		System.out.printf("Point 결과 => %s Point : %d , %s Point : %d\nGame 결과 => %s Game : %d, %s Game : %d\n"
 				, p1.name, p1.points, p2.name, p2.points, p1.name, p1.game, p2.name, p2.game );
-	}
+	}//printTieBreak()
 	void courtChange(Player p1,Player p2){
 		if((p1.game+p2.game)%2==1) System.out.println("@@@Court Change@@@");
-	}
+	}//courtChange()
 	void serveChange(String server) {
 		System.out.printf(">%s Service Game<\n",server);
-	}
+	}//serveChange()
 	void drawLine(char style, int n) {
 		for (int i = 1; i <= n ; i++) {
 			System.out.printf("%c", style);
 		}		
 		System.out.println();
-	}
-}
+	}//drawLine()
+} // Print class
 
 class GameType{  //Player 클래스와 포함관계 
 	//fields
@@ -414,22 +421,22 @@ class GameType{  //Player 클래스와 포함관계
 		//	p1=new Player(setNum);
 		//	p2=new Player(setNum);
 
-	}
+	} // 게임타입선택.
 
 
 	// methods
 
-}
+}// GameType class
 
 class Player{
 	//fields
-	int points;
-	int[] sets ;
+	int points; // 점수
+	int[] sets ; // 세트수
 	int win_set;// 이긴세트수 
 	//ArrayList<Integer> sets;
 	String name;
 	int game;
-	String server;
+	String server; // 서브자.
 	//constructors
 	Player(){}
 	Player(int setNum, String name){ // 3 or 5
@@ -445,4 +452,4 @@ class Player{
 		points+=1*rnd.nextInt(2);
 
 	}
-}
+} // Player class

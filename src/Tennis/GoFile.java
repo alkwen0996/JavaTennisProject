@@ -1,5 +1,9 @@
 package Tennis;
-
+/**
+ * @author Minsu Lee
+ * @date2019. 7. 11.time오후 8:26:40
+ * @subject UI page
+ */
 public class GoFile {
 	public static void main(String[] args) {
 		
@@ -25,9 +29,9 @@ public class GoFile {
 		for (int i = 0; i < outLine.length; i++) {
 			for (int j = 0; j < outLine[0].length; j++) {
 				System.out.printf("%c",outLine[i][j]);
-			}
+			}//for
 			System.out.println();
-		}
+		} // for
 		
-	}
-}
+	} // main
+} // class
