@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/이민수/Desktop/이민수/국비지원/쌍용교육센터/JAVA/JAVA프로젝트/테니스계수기/우리조 테니스계수기/jfiglet-0.0.8.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
